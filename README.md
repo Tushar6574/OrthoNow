@@ -8,6 +8,7 @@ This repository contains the deliverables for the OrthoNow digital growth engage
 - **`tracking.js`**: Task 01 - Centralized GTM dataLayer manager module (reusable across the site).
 - **`task1_gtm_schema.md`**: Task 01 - Full GTM event schema, naming conventions, parameter definitions, and GTM container config.
 - **`task1_developer_brief.md`**: Task 01 - Developer handoff brief with step-by-step dataLayer implementation instructions.
+- **`task1_ga4_ads_strategy.md`**: Task 01 - GA4 property setup, custom dimensions, funnel exploration, audiences, and Google Ads conversion import.
 - **`task3_integration_design.md`**: Task 03 - End-to-end CRM & WhatsApp integration architecture.
 - **`NAMOZA_DEVELOPER_SKILL.md`**: Internal quality standards and strategies used for this build.
 
