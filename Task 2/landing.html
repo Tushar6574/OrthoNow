@@ -628,7 +628,7 @@
                     </form>
                 </div>
 
-                <!-- ===== THANK-YOU STATE (shown after submit) ===== -->
+                <!-- ===== THANK-YOU STATE (shown after successful submit) ===== -->
                 <div id="thank-you" class="thank-you" role="status" aria-live="polite">
                     <div class="form-card">
                         <p class="thank-you-icon">✅</p>
@@ -637,6 +637,21 @@
                             A specialist from your nearest OrthoNow clinic will call you
                             within 15 minutes. Keep your phone nearby.
                         </p>
+                    </div>
+                </div>
+
+                <!-- ===== ERROR STATE (shown if submission fails) ===== -->
+                <div id="error-state" class="thank-you" role="alert" aria-live="assertive">
+                    <div class="form-card">
+                        <p class="thank-you-icon">⚠️</p>
+                        <h2>Something went wrong.</h2>
+                        <p>
+                            We couldn't process your request. Please check your connection
+                            and try again, or call us at <strong>1800-678-466</strong>.
+                        </p>
+                        <button type="button" class="btn-primary" id="retry-btn" style="margin-top: var(--space-6);">
+                            Try Again
+                        </button>
                     </div>
                 </div>
             </div>
@@ -699,26 +714,48 @@
 
     <script>
         /**
-         * OrthoNow Landing Page — Form Logic
-         * - Form validation (regex-based)
-         * - GTM dataLayer push (fires on submit, NOT on page load)
-         * - Thank-you state (no page reload)
-         * - Sticky CTA visibility toggle on scroll
+         * ================================================================
+         * OrthoNow Landing Page — Production Form Handler
+         * ================================================================
+         *
+         * FEATURES
+         *   • Real async fetch with AbortController (8s timeout)
+         *   • try / catch / finally error architecture
+         *   • Double-submit prevention (button lock)
+         *   • Network timeout + server error recovery
+         *   • GTM dataLayer push on SUCCESS only (not on load, not on failure)
+         *   • Accessible ARIA states (aria-busy, aria-invalid, role="alert")
+         *   • Thank-you state (no page reload)
+         *   • Error state with retry button
+         * ================================================================
          */
 
         (function () {
             'use strict';
 
-            window.dataLayer = window.dataLayer || [];
+            // ---- Config ----
+            var API_ENDPOINT = 'https://api.orthonow.in/v1/leads';
+            var REQUEST_TIMEOUT_MS = 8000;
+            var FORM_ID = 'book_consultation_landing';
+            var LEAD_SOURCE = 'Google Ads - Consultation Landing Page';
 
-            var form = document.getElementById('consultation-form');
-            var submitBtn = document.getElementById('submit-btn');
-            var formWrapper = document.getElementById('form-wrapper');
-            var thankYou = document.getElementById('thank-you');
-            var nameInput = document.getElementById('patient-name');
-            var phoneInput = document.getElementById('patient-phone');
-            var nameError = document.getElementById('name-error');
-            var phoneError = document.getElementById('phone-error');
+            // ---- DOM References ----
+            var form         = document.getElementById('consultation-form');
+            var submitBtn    = document.getElementById('submit-btn');
+            var retryBtn     = document.getElementById('retry-btn');
+            var formWrapper  = document.getElementById('form-wrapper');
+            var thankYou     = document.getElementById('thank-you');
+            var errorState   = document.getElementById('error-state');
+            var nameInput    = document.getElementById('patient-name');
+            var phoneInput   = document.getElementById('patient-phone');
+            var nameError    = document.getElementById('name-error');
+            var phoneError   = document.getElementById('phone-error');
+
+            // ---- State ----
+            var isSubmitting = false; // Double-submit lock
+
+            // ---- GTM ----
+            window.dataLayer = window.dataLayer || [];
 
             // ---- Validation ----
             function validateName(value) {
@@ -729,85 +766,193 @@
                 return /^[0-9]{10}$/.test(value.trim());
             }
 
-            // ---- Form Submission ----
-            form.addEventListener('submit', function (e) {
+            function setFieldError(input, errorEl, isError) {
+                if (isError) {
+                    errorEl.style.display = 'block';
+                    input.setAttribute('aria-invalid', 'true');
+                } else {
+                    errorEl.style.display = 'none';
+                    input.removeAttribute('aria-invalid');
+                }
+            }
+
+            /**
+             * Submits lead data to backend via fetch with timeout.
+             * Returns a Promise that resolves on success or rejects on any failure.
+             */
+            function submitLead(name, phone) {
+                var controller = new AbortController();
+                var timeoutId = setTimeout(function () {
+                    controller.abort();
+                }, REQUEST_TIMEOUT_MS);
+
+                return fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        phone: phone,
+                        source: LEAD_SOURCE,
+                        form_id: FORM_ID
+                    }),
+                    signal: controller.signal
+                }).then(function (response) {
+                    clearTimeout(timeoutId);
+
+                    if (!response.ok) {
+                        throw new Error('Server returned ' + response.status);
+                    }
+
+                    return response.json();
+                }).catch(function (error) {
+                    clearTimeout(timeoutId);
+
+                    // Distinguish timeout from other network errors
+                    if (error.name === 'AbortError') {
+                        throw new Error('Request timed out after ' + REQUEST_TIMEOUT_MS + 'ms');
+                    }
+
+                    throw error;
+                });
+            }
+
+            /**
+             * Fires the GTM dataLayer push on confirmed success.
+             * Pushes ≥ 2 parameters as required by the brief.
+             */
+            function fireTrackingEvent(name, phone) {
+                window.dataLayer.push({
+                    'event': 'consultation_form_submitted',
+                    'form_id': FORM_ID,
+                    'lead_source': LEAD_SOURCE,
+                    'page_section': 'hero',
+                    'submission_timestamp': new Date().toISOString()
+                });
+            }
+
+            /**
+             * Shows the thank-you state and hides form/error.
+             */
+            function showThankYou() {
+                formWrapper.style.display = 'none';
+                errorState.style.display = 'none';
+                thankYou.style.display = 'block';
+                thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            /**
+             * Shows the error state with retry option.
+             */
+            function showError() {
+                formWrapper.style.display = 'none';
+                thankYou.style.display = 'none';
+                errorState.style.display = 'block';
+                errorState.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            /**
+             * Resets button to default state.
+             */
+            function resetButton() {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Book Free Consultation';
+                submitBtn.removeAttribute('aria-busy');
+            }
+
+            /**
+             * Main form submission handler.
+             * Architecture: validate → lock UI → fetch → track → show state → unlock
+             */
+            function handleSubmit(e) {
                 e.preventDefault();
 
-                var name = nameInput.value;
+                // Prevent double-submit
+                if (isSubmitting) return;
+
+                var name  = nameInput.value;
                 var phone = phoneInput.value;
                 var isValid = true;
 
-                // Validate fields
+                // 1. Validate
                 if (!validateName(name)) {
-                    nameError.style.display = 'block';
-                    nameInput.setAttribute('aria-invalid', 'true');
+                    setFieldError(nameInput, nameError, true);
                     isValid = false;
                 } else {
-                    nameError.style.display = 'none';
-                    nameInput.removeAttribute('aria-invalid');
+                    setFieldError(nameInput, nameError, false);
                 }
 
                 if (!validatePhone(phone)) {
-                    phoneError.style.display = 'block';
-                    phoneInput.setAttribute('aria-invalid', 'true');
+                    setFieldError(phoneInput, phoneError, true);
                     isValid = false;
                 } else {
-                    phoneError.style.display = 'none';
-                    phoneInput.removeAttribute('aria-invalid');
+                    setFieldError(phoneInput, phoneError, false);
                 }
 
                 if (!isValid) return;
 
-                // Loading state
+                // 2. Lock UI (loading state)
+                isSubmitting = true;
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Booking your consultation...';
+                submitBtn.setAttribute('aria-busy', 'true');
 
-                // Simulate async submission (Phase 4 will replace with real fetch)
-                setTimeout(function () {
-                    // GTM dataLayer push — fires ONLY on successful submit, not page load
-                    window.dataLayer.push({
-                        'event': 'consultation_form_submitted',
-                        'form_id': 'book_consultation_landing',
-                        'lead_source': 'Google Ads - Consultation Landing Page',
-                        'page_section': 'hero',
-                        'submission_timestamp': new Date().toISOString()
+                // 3. Async submission
+                submitLead(name, phone)
+                    .then(function () {
+                        // 4a. Success: fire tracking + show thank-you
+                        fireTrackingEvent(name, phone);
+                        showThankYou();
+                    })
+                    .catch(function (error) {
+                        // 4b. Failure: log + show error state (NO tracking event fired)
+                        console.error('[OrthoNow] Submission failed:', error.message);
+                        showError();
+                    })
+                    .finally(function () {
+                        // 5. Unlock (always)
+                        isSubmitting = false;
+                        resetButton();
                     });
+            }
 
-                    // Swap to thank-you state (no page reload)
-                    formWrapper.style.display = 'none';
-                    thankYou.style.display = 'block';
+            // ---- Event Listeners ----
 
-                    // Scroll to thank-you
-                    thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 1200);
+            form.addEventListener('submit', handleSubmit);
+
+            // Retry button: hide error, show form again
+            retryBtn.addEventListener('click', function () {
+                errorState.style.display = 'none';
+                formWrapper.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
 
-            // Clear error on input
+            // Clear field errors on input
             nameInput.addEventListener('input', function () {
-                nameError.style.display = 'none';
-                nameInput.removeAttribute('aria-invalid');
+                setFieldError(nameInput, nameError, false);
             });
             phoneInput.addEventListener('input', function () {
-                phoneError.style.display = 'none';
-                phoneInput.removeAttribute('aria-invalid');
+                setFieldError(phoneInput, phoneError, false);
             });
 
             // ---- Sticky CTA: show after user scrolls past hero ----
             var stickyCta = document.getElementById('sticky-cta');
             var heroSection = document.querySelector('.hero');
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        stickyCta.classList.remove('visible');
-                        document.body.classList.remove('sticky-active');
-                    } else {
-                        stickyCta.classList.add('visible');
-                        document.body.classList.add('sticky-active');
-                    }
-                });
-            }, { threshold: 0 });
 
-            observer.observe(heroSection);
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            stickyCta.classList.remove('visible');
+                            document.body.classList.remove('sticky-active');
+                        } else {
+                            stickyCta.classList.add('visible');
+                            document.body.classList.add('sticky-active');
+                        }
+                    });
+                }, { threshold: 0 });
+
+                observer.observe(heroSection);
+            }
         })();
     </script>
 
