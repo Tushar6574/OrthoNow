@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563EB">
+
+    <title>OrthoNow — Expert Orthopaedic Consultation | Don't Let Knee or Back Pain Wait</title>
+    <meta name="description" content="Get an expert orthopaedic opinion from India's leading specialists. Book your free consultation — we call you back within 15 minutes. 9 clinics across Bengaluru, Hyderabad & Chennai.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OrthoNow — Expert Orthopaedic Consultation">
+    <meta property="og:description" content="Don't let knee or back pain dictate your schedule. Get a free callback from an OrthoNow specialist within 15 minutes.">
+    <meta property="og:locale" content="en_IN">
+
+    <link rel="canonical" href="https://www.orthonow.in/book-consultation">
+
+    <style>
+        /* ===== Phase 2: Structural CSS (minimal — FINT tokens applied in Phase 3) ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #171717;
+            background: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        button { font: inherit; cursor: pointer; }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #2563EB;
+            color: #FFFFFF;
+            padding: 8px 16px;
+            z-index: 1000;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Layout container */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+            padding: 32px 0 40px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #2563EB;
+            background: #DBEAFE;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .subheadline {
+            font-size: 16px;
+            color: #525252;
+            line-height: 1.5;
+            margin-bottom: 28px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Form */
+        .form-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E5E5;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group:last-of-type { margin-bottom: 24px; }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 12px;
+            border: 1.5px solid #E5E5E5;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.15s ease;
+            -webkit-appearance: none;
+        }
+        input:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        input::placeholder { color: #A3A3A3; }
+
+        .error-msg {
+            color: #DC2626;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: background 0.15s ease, transform 0.1s ease;
+            box-shadow: inset 0px 4px 8px rgba(170, 170, 170, 0.3),
+                        inset 0px -3px 4px rgba(0, 0, 0, 0.25);
+        }
+        .btn-primary:hover { background: #1D4ED8; }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .form-microcopy {
+            text-align: center;
+            font-size: 12px;
+            color: #737373;
+            margin-top: 12px;
+        }
+
+        /* Thank-you state */
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .thank-you-icon {
+            font-size: 56px;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        /* Trust section */
+        .trust {
+            padding: 40px 0;
+            border-top: 1px solid #F5F5F5;
+        }
+        .trust-heading {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #737373;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .trust-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .trust-item {
+            background: #FAFAFA;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .trust-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: #2563EB;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .trust-label {
+            font-size: 12px;
+            color: #525252;
+        }
+
+        /* Specialties */
+        .specialties {
+            padding: 0 0 40px;
+        }
+        .specialties-heading {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .specialty-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .specialty-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #404040;
+            padding: 10px 12px;
+            background: #FAFAFA;
+            border-radius: 6px;
+        }
+        .specialty-check {
+            color: #22C55E;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            border-top: 1px solid #E5E5E5;
+            padding: 12px 16px;
+            z-index: 100;
+        }
+        .sticky-cta-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #2563EB;
+            color: #FFFFFF;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container { max-width: 720px; }
+            .hero { padding: 56px 0 64px; }
+            h1 { font-size: 40px; }
+            .subheadline { font-size: 18px; }
+            .form-card { padding: 32px; }
+            .trust-grid { grid-template-columns: repeat(4, 1fr); }
+            .specialty-list { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        @media (max-width: 380px) {
+            h1 { font-size: 24px; }
+            .trust-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Show sticky CTA after scroll (toggled by JS) */
+        .sticky-cta.visible { display: block; }
+        body.sticky-active { padding-bottom: 72px; }
+
+        /* Visually hidden but accessible */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MedicalClinic",
+        "name": "OrthoNow",
+        "description": "Chain of 9 orthopaedic clinics across Bengaluru, Hyderabad, and Chennai specializing in knee, spine, and sports medicine.",
+        "url": "https://www.orthonow.in",
+        "telephone": "+91-1800-678-466",
+        "medicalSpecialty": ["Orthopedic", "SportsMedicine", "Podiatric"],
+        "areaServed": [
+            { "@type": "City", "name": "Bengaluru" },
+            { "@type": "City", "name": "Hyderabad" },
+            { "@type": "City", "name": "Chennai" }
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "50000"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <a href="#consultation-form" class="skip-link">Skip to consultation form</a>
+
+    <main>
+        <!-- ===== HERO + FORM (above the fold) ===== -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="container">
+                <span class="badge" aria-label="Accreditation">NABH Accredited</span>
+
+                <h1 id="hero-heading">Don't let knee or back pain dictate your schedule.</h1>
+
+                <p class="subheadline">
+                    Get an expert orthopaedic opinion from India's leading specialists.
+                    Book your free consultation — we call you back within 15 minutes.
+                </p>
+
+                <!-- ===== CONSULTATION FORM (2 fields — minimal friction) ===== -->
+                <div id="form-wrapper">
+                    <form id="consultation-form" class="form-card" novalidate aria-label="Book a consultation">
+                        <div class="form-group">
+                            <label for="patient-name">Your Name</label>
+                            <input
+                                type="text"
+                                id="patient-name"
+                                name="name"
+                                placeholder="e.g. Rahul Sharma"
+                                required
+                                autocomplete="name"
+                                aria-required="true"
+                                aria-describedby="name-error"
+                                minlength="3"
+                            >
+                            <p class="error-msg" id="name-error" role="alert">
+                                Please enter your name (at least 3 characters).
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patient-phone">Mobile Number (10 digits)</label>
+                            <input
+                                type="tel"
+                                id="patient-phone"
+                                name="phone"
+                                placeholder="e.g. 9876543210"
+                                required
+                                autocomplete="tel"
+                                aria-required="true"
+                                aria-describedby="phone-error"
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                maxlength="10"
+                            >
+                            <p class="error-msg" id="phone-error" role="alert">
+                                Please enter a valid 10-digit mobile number.
+                            </p>
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="submit-btn">
+                            Book Free Consultation
+                        </button>
+
+                        <p class="form-microcopy">
+                            No payment required · Cancel anytime · Your data is secure
+                        </p>
+                    </form>
+                </div>
+
+                <!-- ===== THANK-YOU STATE (shown after submit) ===== -->
+                <div id="thank-you" class="thank-you" role="status" aria-live="polite">
+                    <div class="form-card">
+                        <p class="thank-you-icon">✅</p>
+                        <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 12px;">
+                            You're all set.
+                        </h2>
+                        <p style="color: #525252; font-size: 15px;">
+                            A specialist from your nearest OrthoNow clinic will call you
+                            within 15 minutes. Keep your phone nearby.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TRUST PROOF ===== -->
+        <section class="trust" aria-labelledby="trust-heading">
+            <div class="container">
+                <h2 class="trust-heading" id="trust-heading">Why patients choose OrthoNow</h2>
+
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <div class="trust-number">9</div>
+                        <div class="trust-label">Specialized Clinics</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-number">15+</div>
+                        <div class="trust-label">Years Experience</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-number">50K+</div>
+                        <div class="trust-label">Patients Treated</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-number">4.8★</div>
+                        <div class="trust-label">Patient Rating</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SPECIALTIES ===== -->
+        <section class="specialties" aria-labelledby="spec-heading">
+            <div class="container">
+                <h2 class="specialties-heading" id="spec-heading">Our Specialties</h2>
+                <ul class="specialty-list">
+                    <li class="specialty-item">
+                        <span class="specialty-check" aria-hidden="true">✓</span> Knee Replacement
+                    </li>
+                    <li class="specialty-item">
+                        <span class="specialty-check" aria-hidden="true">✓</span> Spine &amp; Back Care
+                    </li>
+                    <li class="specialty-item">
+                        <span class="specialty-check" aria-hidden="true">✓</span> Sports Medicine
+                    </li>
+                    <li class="specialty-item">
+                        <span class="specialty-check" aria-hidden="true">✓</span> Joint Preservation
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== STICKY MOBILE CTA ===== -->
+    <nav class="sticky-cta" id="sticky-cta" aria-label="Quick book">
+        <a href="#consultation-form" class="sticky-cta-btn">
+            Book Free Consultation ↓
+        </a>
+    </nav>
+
+    <script>
+        /**
+         * OrthoNow Landing Page — Phase 2 Logic
+         * - Form validation (regex-based)
+         * - GTM dataLayer push (fires on submit, NOT on page load)
+         * - Thank-you state (no page reload)
+         * - Sticky CTA visibility toggle on scroll
+         */
+
+        (function () {
+            'use strict';
+
+            window.dataLayer = window.dataLayer || [];
+
+            var form = document.getElementById('consultation-form');
+            var submitBtn = document.getElementById('submit-btn');
+            var formWrapper = document.getElementById('form-wrapper');
+            var thankYou = document.getElementById('thank-you');
+            var nameInput = document.getElementById('patient-name');
+            var phoneInput = document.getElementById('patient-phone');
+            var nameError = document.getElementById('name-error');
+            var phoneError = document.getElementById('phone-error');
+
+            // ---- Validation ----
+            function validateName(value) {
+                return value.trim().length >= 3;
+            }
+
+            function validatePhone(value) {
+                return /^[0-9]{10}$/.test(value.trim());
+            }
+
+            // ---- Form Submission ----
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var name = nameInput.value;
+                var phone = phoneInput.value;
+                var isValid = true;
+
+                // Validate fields
+                if (!validateName(name)) {
+                    nameError.style.display = 'block';
+                    nameInput.setAttribute('aria-invalid', 'true');
+                    isValid = false;
+                } else {
+                    nameError.style.display = 'none';
+                    nameInput.removeAttribute('aria-invalid');
+                }
+
+                if (!validatePhone(phone)) {
+                    phoneError.style.display = 'block';
+                    phoneInput.setAttribute('aria-invalid', 'true');
+                    isValid = false;
+                } else {
+                    phoneError.style.display = 'none';
+                    phoneInput.removeAttribute('aria-invalid');
+                }
+
+                if (!isValid) return;
+
+                // Loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Booking your consultation...';
+
+                // Simulate async submission (Phase 4 will replace with real fetch)
+                setTimeout(function () {
+                    // GTM dataLayer push — fires ONLY on successful submit, not page load
+                    window.dataLayer.push({
+                        'event': 'consultation_form_submitted',
+                        'form_id': 'book_consultation_landing',
+                        'lead_source': 'Google Ads - Consultation Landing Page',
+                        'page_section': 'hero',
+                        'submission_timestamp': new Date().toISOString()
+                    });
+
+                    // Swap to thank-you state (no page reload)
+                    formWrapper.style.display = 'none';
+                    thankYou.style.display = 'block';
+
+                    // Scroll to thank-you
+                    thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 1200);
+            });
+
+            // Clear error on input
+            nameInput.addEventListener('input', function () {
+                nameError.style.display = 'none';
+                nameInput.removeAttribute('aria-invalid');
+            });
+            phoneInput.addEventListener('input', function () {
+                phoneError.style.display = 'none';
+                phoneInput.removeAttribute('aria-invalid');
+            });
+
+            // ---- Sticky CTA: show after user scrolls past hero ----
+            var stickyCta = document.getElementById('sticky-cta');
+            var heroSection = document.querySelector('.hero');
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        stickyCta.classList.remove('visible');
+                        document.body.classList.remove('sticky-active');
+                    } else {
+                        stickyCta.classList.add('visible');
+                        document.body.classList.add('sticky-active');
+                    }
+                });
+            }, { threshold: 0 });
+
+            observer.observe(heroSection);
+        })();
+    </script>
+
+</body>
+</html>
