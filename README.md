@@ -4,14 +4,19 @@ This repository contains the deliverables for the OrthoNow digital growth engage
 
 ## 📂 Repository Structure
 
-- **`index.html`**: Task 02 - The conversion-optimized landing page (Single self-contained file).
-- **`tracking.js`**: Task 01 - Centralized GTM dataLayer manager module (reusable across the site).
-- **`task1_gtm_schema.md`**: Task 01 - Full GTM event schema, naming conventions, parameter definitions, and GTM container config.
-- **`task1_developer_brief.md`**: Task 01 - Developer handoff brief with step-by-step dataLayer implementation instructions.
-- **`task1_ga4_ads_strategy.md`**: Task 01 - GA4 property setup, custom dimensions, funnel exploration, audiences, and Google Ads conversion import.
-- **`task1_documentation.md`**: Task 01 - Master handoff: deliverables map, architecture diagram, Loom script, and QA verification checklist.
-- **`task3_integration_design.md`**: Task 03 - End-to-end CRM & WhatsApp integration architecture.
-- **`NAMOZA_DEVELOPER_SKILL.md`**: Internal quality standards and strategies used for this build.
+```
+OrthoNow/
+├── index.html                      # Task 02 - Landing page (references Task 1/tracking.js)
+├── Task 1/                         # Task 01 - GTM Event Schema (all files)
+│   ├── tracking.js                 #   Centralized dataLayer manager module
+│   ├── task1_gtm_schema.md         #   Event schema, naming conventions, GTM container config
+│   ├── task1_developer_brief.md    #   Developer handoff with step-by-step dataLayer instructions
+│   ├── task1_ga4_ads_strategy.md   #   GA4 setup, custom dimensions, funnel, audiences, Ads import
+│   └── task1_documentation.md      #   Master handoff: architecture diagram, Loom script, QA checklist
+├── task3_integration_design.md     # Task 03 - CRM & WhatsApp integration architecture
+├── NAMOZA_DEVELOPER_SKILL.md       # Internal quality standards
+└── README.md                       # This file
+```
 
 ---
 
