@@ -16,286 +16,525 @@
     <link rel="canonical" href="https://www.orthonow.in/book-consultation">
 
     <style>
-        /* ===== Phase 2: Structural CSS (minimal — FINT tokens applied in Phase 3) ===== */
+        /* ================================================================
+           FINT DESIGN SYSTEM — Full Token Implementation
+           All values sourced from design.md (Figma Variables export)
+           ================================================================ */
+
+        /* ---- 1a. Primitive Color Ramps ---- */
+        :root {
+            /* color/black (neutral) */
+            --color-black-0: #FFFFFF;
+            --color-black-50: #FAFAFA;
+            --color-black-100: #F5F5F5;
+            --color-black-150: #EEEEEE;
+            --color-black-200: #E5E5E5;
+            --color-black-300: #D4D4D4;
+            --color-black-400: #A3A3A3;
+            --color-black-500: #737373;
+            --color-black-600: #525252;
+            --color-black-700: #404040;
+            --color-black-800: #262626;
+            --color-black-900: #171717;
+            --color-black-950: #000000;
+
+            /* color/green */
+            --color-green-50: #F0FDF4;
+            --color-green-100: #DCFCE7;
+            --color-green-200: #BBF7D0;
+            --color-green-400: #4ADE80;
+            --color-green-500: #22C55E;
+            --color-green-600: #16A34A;
+            --color-green-700: #15803D;
+
+            /* color/red */
+            --color-red-50: #FEF2F2;
+            --color-red-100: #FEE2E2;
+            --color-red-200: #FECACA;
+            --color-red-500: #EF4444;
+            --color-red-600: #DC2626;
+            --color-red-700: #B91C1C;
+
+            /* color/blue */
+            --color-blue-50: #EFF6FF;
+            --color-blue-100: #DBEAFE;
+            --color-blue-200: #BFDBFE;
+            --color-blue-500: #3B82F6;
+            --color-blue-600: #2563EB;
+            --color-blue-700: #1D4ED8;
+
+            /* color/amber */
+            --color-amber-50: #FFFBEB;
+            --color-amber-500: #F59E0B;
+
+            /* ---- 1b. Semantic Groups ---- */
+
+            /* color/primary → black scale */
+            --color-primary-default: var(--color-black-950);
+            --color-primary-hover: var(--color-black-900);
+            --color-primary-on: var(--color-black-0);
+            --color-primary-surface-base: var(--color-black-0);
+            --color-primary-surface-subtle: var(--color-black-50);
+            --color-primary-surface-muted: var(--color-black-100);
+            --color-primary-border-subtle: var(--color-black-150);
+            --color-primary-border-default: var(--color-black-200);
+            --color-primary-border-focus: var(--color-black-950);
+            --color-primary-text-primary: var(--color-black-950);
+            --color-primary-text-secondary: var(--color-black-500);
+            --color-primary-text-tertiary: var(--color-black-400);
+            --color-primary-text-subtle: var(--color-black-600);
+            --color-primary-text-inverse: var(--color-black-0);
+
+            /* color/info → blue scale (used for healthcare action color) */
+            --color-info-default: var(--color-blue-500);
+            --color-info-hover: var(--color-blue-600);
+            --color-info-pressed: var(--color-blue-700);
+            --color-info-on: var(--color-black-0);
+            --color-info-subtle: var(--color-blue-50);
+            --color-info-subtle-hover: var(--color-blue-100);
+            --color-info-text-primary: #1E40AF;
+            --color-info-text-secondary: var(--color-blue-700);
+            --color-info-border-default: var(--color-blue-200);
+
+            /* color/success → green scale */
+            --color-success-default: var(--color-green-500);
+            --color-success-text-primary: var(--color-green-700);
+            --color-success-icon-primary: var(--color-green-600);
+
+            /* color/danger → red scale */
+            --color-danger-default: var(--color-red-500);
+            --color-danger-hover: var(--color-red-600);
+            --color-danger-text-primary: var(--color-red-700);
+            --color-danger-subtle: var(--color-red-50);
+
+            /* ---- 2. Spacing Tokens (4px base, intentional gaps) ---- */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-12: 48px;
+            --space-16: 64px;
+
+            /* ---- 3. Corner Radius Tokens ---- */
+            --radius-none: 0px;
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+            --radius-full: 100px;
+
+            /* ---- 4. Typography (Geist) ---- */
+            /* Letter spacing: Figma % → CSS em (value/100) */
+            /*   1% → 0.01em, 2.5% → 0.025em */
+            --font-ui: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'Geist Mono', "SF Mono", "Cascadia Code", "Courier New", monospace;
+
+            /* Display styles */
+            --type-display-lg-bold: 700 40px/48px var(--font-ui);
+            --type-display-md-bold: 700 32px/40px var(--font-ui);
+            --type-display-sm-bold: 700 24px/32px var(--font-ui);
+            --type-display-sm-medium: 500 24px/32px var(--font-ui);
+
+            /* Heading styles */
+            --type-heading-xl-medium: 500 20px/28px var(--font-ui);
+            --type-heading-lg-bold: 700 18px/26px var(--font-ui);
+            --type-heading-md-medium: 500 16px/24px var(--font-ui);
+            --type-heading-sm-medium: 500 15px/22px var(--font-ui);
+
+            /* Body styles */
+            --type-body-lg-regular: 400 18px/28px var(--font-ui);
+            --type-body-md-regular: 400 14px/22px var(--font-ui);
+            --type-body-sm-regular: 400 13px/20px var(--font-ui);
+
+            /* Label styles */
+            --type-label-lg-medium: 500 14px/20px var(--font-ui);
+            --type-label-md-medium: 500 12px/16px var(--font-ui); /* 2.5% exception */
+            --type-label-sm-bold: 700 11px/15px var(--font-ui);
+            --type-label-xs-regular: 400 10px/14px var(--font-ui);
+
+            /* ---- 5. Effect Styles ---- */
+
+            /* Button Shadow (multi-layer composite) */
+            --effect-button-shadow:
+                inset 0px 4px 8px 0px rgba(170, 170, 170, 0.3),
+                inset 0px -3px 4px 0px rgba(0, 0, 0, 0.25);
+
+            /* Popover Shadow (5-layer composite) */
+            --effect-popover-shadow:
+                5px 7px 19px rgba(0, 0, 0, 0.02),
+                18px 29px 34px rgba(0, 0, 0, 0.02),
+                41px 65px 46px rgba(0, 0, 0, 0.01),
+                72px 115px 54px rgba(0, 0, 0, 0),
+                113px 180px 60px rgba(0, 0, 0, 0);
+
+            /* Tooltip Shadow (5-layer composite) */
+            --effect-tooltip-shadow:
+                3px 2px 9px rgba(0, 0, 0, 0.05),
+                13px 9px 16px rgba(0, 0, 0, 0.04),
+                29px 20px 21px rgba(0, 0, 0, 0.03),
+                52px 36px 25px rgba(0, 0, 0, 0.01),
+                81px 56px 28px rgba(0, 0, 0, 0);
+        }
+
+        /* ================================================================
+           BASE RESET & TYPOGRAPHY
+           ================================================================ */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #171717;
-            background: #FFFFFF;
+            font-family: var(--font-ui);
+            font: var(--type-body-md-regular);
+            letter-spacing: 0.01em; /* Geist default 1% */
+            color: var(--color-primary-text-primary);
+            background: var(--color-primary-surface-base);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
         a { color: inherit; text-decoration: none; }
         img { max-width: 100%; height: auto; display: block; }
-        button { font: inherit; cursor: pointer; }
+        button { font: inherit; cursor: pointer; letter-spacing: 0.01em; }
 
-        /* Skip link for accessibility */
+        /* Skip link */
         .skip-link {
             position: absolute;
             top: -40px;
             left: 0;
-            background: #2563EB;
-            color: #FFFFFF;
-            padding: 8px 16px;
+            background: var(--color-info-default);
+            color: var(--color-info-on);
+            padding: var(--space-2) var(--space-4);
             z-index: 1000;
+            font: var(--type-label-md-medium);
+            letter-spacing: 0.025em; /* Label/MD/Medium 2.5% exception */
             transition: top 0.2s;
         }
         .skip-link:focus { top: 0; }
 
-        /* Layout container */
+        /* Visually hidden but accessible */
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ================================================================
+           LAYOUT
+           ================================================================ */
         .container {
             max-width: 480px;
             margin: 0 auto;
-            padding: 0 16px;
+            padding: 0 var(--space-4);
         }
 
-        /* Hero section */
+        /* ================================================================
+           HERO SECTION
+           ================================================================ */
         .hero {
-            background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
-            padding: 32px 0 40px;
+            background: linear-gradient(180deg, var(--color-info-subtle) 0%, var(--color-primary-surface-base) 100%);
+            padding: var(--space-8) 0 var(--space-12);
             text-align: center;
         }
 
         .badge {
             display: inline-block;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
+            font: var(--type-label-sm-bold);
+            letter-spacing: 0.01em;
             text-transform: uppercase;
-            color: #2563EB;
-            background: #DBEAFE;
-            padding: 4px 12px;
-            border-radius: 100px;
-            margin-bottom: 20px;
+            color: var(--color-info-hover);
+            background: var(--color-info-subtle-hover);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-5);
         }
 
+        /* h1 → Display/SM/Bold (mobile), Display/MD/Bold (tablet) */
         h1 {
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
+            font: var(--type-display-sm-bold);
+            letter-spacing: 0.01em;
+            margin-bottom: var(--space-3);
         }
 
+        /* Subheadline → Body/LG/Regular */
         .subheadline {
+            font: var(--type-body-lg-regular);
             font-size: 16px;
-            color: #525252;
-            line-height: 1.5;
-            margin-bottom: 28px;
+            color: var(--color-primary-text-secondary);
+            margin-bottom: var(--space-8);
             max-width: 400px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Form */
+        /* ================================================================
+           FORM CARD (uses Popover Shadow effect)
+           ================================================================ */
         .form-card {
-            background: #FFFFFF;
-            border: 1px solid #E5E5E5;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
+            background: var(--color-primary-surface-base);
+            border: 1px solid var(--color-primary-border-default);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--effect-popover-shadow);
             text-align: left;
         }
 
-        .form-group { margin-bottom: 16px; }
-        .form-group:last-of-type { margin-bottom: 24px; }
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+        .form-group:last-of-type {
+            margin-bottom: var(--space-6);
+        }
 
+        /* Label → Label/LG/Medium */
         label {
             display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font: var(--type-label-lg-medium);
+            letter-spacing: 0.01em;
+            margin-bottom: var(--space-2);
         }
 
         input {
             width: 100%;
-            padding: 14px 12px;
-            border: 1.5px solid #E5E5E5;
-            border-radius: 8px;
-            font-size: 16px;
-            font-family: inherit;
-            transition: border-color 0.15s ease;
+            padding: var(--space-3) var(--space-3);
+            border: 1.5px solid var(--color-primary-border-default);
+            border-radius: var(--radius-lg);
+            font: var(--type-body-lg-regular);
+            font-size: 16px; /* ≥16px prevents iOS zoom-on-focus */
+            letter-spacing: 0.01em;
+            font-family: var(--font-ui);
+            color: var(--color-primary-text-primary);
+            background: var(--color-primary-surface-base);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
             -webkit-appearance: none;
         }
         input:focus {
             outline: none;
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            border-color: var(--color-primary-border-focus);
         }
-        input::placeholder { color: #A3A3A3; }
+        input::placeholder {
+            color: var(--color-primary-text-tertiary);
+        }
+        input[aria-invalid="true"] {
+            border-color: var(--color-danger-default);
+        }
 
+        /* Error → Body/SM/Regular in danger */
         .error-msg {
-            color: #DC2626;
-            font-size: 12px;
-            margin-top: 4px;
+            font: var(--type-body-sm-regular);
+            color: var(--color-danger-text-primary);
+            margin-top: var(--space-1);
             display: none;
         }
 
+        /* ================================================================
+           PRIMARY BUTTON
+           Uses info semantic (blue) + FINT Button Shadow effect
+           ================================================================ */
         .btn-primary {
             display: block;
             width: 100%;
-            padding: 16px;
-            background: #2563EB;
-            color: #FFFFFF;
+            padding: var(--space-4);
+            background: var(--color-info-default);
+            color: var(--color-info-on);
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
+            font: var(--type-label-lg-medium);
             font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.01em;
             transition: background 0.15s ease, transform 0.1s ease;
-            box-shadow: inset 0px 4px 8px rgba(170, 170, 170, 0.3),
-                        inset 0px -3px 4px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--effect-button-shadow);
         }
-        .btn-primary:hover { background: #1D4ED8; }
-        .btn-primary:active { transform: scale(0.98); }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-primary:hover {
+            background: var(--color-info-hover);
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
+        /* Form microcopy → Label/XS/Regular */
         .form-microcopy {
             text-align: center;
-            font-size: 12px;
-            color: #737373;
-            margin-top: 12px;
+            font: var(--type-label-xs-regular);
+            letter-spacing: 0.01em;
+            color: var(--color-primary-text-secondary);
+            margin-top: var(--space-3);
         }
 
-        /* Thank-you state */
+        /* ================================================================
+           THANK-YOU STATE
+           ================================================================ */
         .thank-you {
             display: none;
             text-align: center;
-            padding: 32px 24px;
+            padding: var(--space-8) var(--space-6);
+        }
+        .thank-you .form-card {
+            text-align: center;
         }
         .thank-you-icon {
             font-size: 56px;
             line-height: 1;
-            margin-bottom: 16px;
+            margin-bottom: var(--space-4);
+        }
+        .thank-you h2 {
+            font: var(--type-heading-lg-bold);
+            letter-spacing: 0.01em;
+            margin-bottom: var(--space-3);
+        }
+        .thank-you p {
+            font: var(--type-body-md-regular);
+            color: var(--color-primary-text-secondary);
         }
 
-        /* Trust section */
+        /* ================================================================
+           TRUST SECTION
+           ================================================================ */
         .trust {
-            padding: 40px 0;
-            border-top: 1px solid #F5F5F5;
+            padding: var(--space-12) 0;
+            border-top: 1px solid var(--color-primary-surface-muted);
         }
+
+        /* Trust heading → Label/MD/Medium (2.5% letter-spacing exception) */
         .trust-heading {
-            font-size: 14px;
-            font-weight: 700;
+            font: var(--type-label-md-medium);
+            letter-spacing: 0.025em; /* FINT exception: Label/MD/Medium = 2.5% */
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #737373;
+            font-weight: 700;
+            color: var(--color-primary-text-secondary);
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: var(--space-6);
         }
+
         .trust-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: var(--space-4);
         }
         .trust-item {
-            background: #FAFAFA;
-            border-radius: 8px;
-            padding: 16px;
+            background: var(--color-primary-surface-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
             text-align: center;
         }
+        /* Trust number → Display/SM/Medium in info blue */
         .trust-number {
-            font-size: 24px;
+            font: var(--type-display-sm-medium);
             font-weight: 800;
-            color: #2563EB;
+            color: var(--color-info-hover);
             line-height: 1;
-            margin-bottom: 4px;
+            margin-bottom: var(--space-1);
         }
+        /* Trust label → Body/SM/Regular */
         .trust-label {
-            font-size: 12px;
-            color: #525252;
+            font: var(--type-body-sm-regular);
+            color: var(--color-primary-text-subtle);
         }
 
-        /* Specialties */
+        /* ================================================================
+           SPECIALTIES
+           ================================================================ */
         .specialties {
-            padding: 0 0 40px;
+            padding: 0 0 var(--space-12);
         }
         .specialties-heading {
-            font-size: 20px;
-            font-weight: 700;
+            font: var(--type-heading-xl-medium);
+            letter-spacing: 0.01em;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: var(--space-5);
         }
         .specialty-list {
             list-style: none;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: var(--space-2);
         }
         .specialty-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #404040;
-            padding: 10px 12px;
-            background: #FAFAFA;
-            border-radius: 6px;
+            gap: var(--space-2);
+            font: var(--type-body-md-regular);
+            color: var(--color-black-700);
+            padding: var(--space-3);
+            background: var(--color-primary-surface-subtle);
+            border-radius: var(--radius-md);
         }
         .specialty-check {
-            color: #22C55E;
+            color: var(--color-success-icon-primary);
             font-weight: 700;
             flex-shrink: 0;
         }
 
-        /* Sticky CTA */
+        /* ================================================================
+           STICKY MOBILE CTA
+           ================================================================ */
         .sticky-cta {
             display: none;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: #FFFFFF;
-            border-top: 1px solid #E5E5E5;
-            padding: 12px 16px;
+            background: var(--color-primary-surface-base);
+            border-top: 1px solid var(--color-primary-border-default);
+            padding: var(--space-3) var(--space-4);
             z-index: 100;
         }
         .sticky-cta-btn {
             display: block;
             width: 100%;
-            padding: 14px;
-            background: #2563EB;
-            color: #FFFFFF;
+            padding: var(--space-3);
+            background: var(--color-info-default);
+            color: var(--color-info-on);
             text-align: center;
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
+            font: var(--type-label-lg-medium);
             font-size: 15px;
             font-weight: 700;
+            letter-spacing: 0.01em;
+            box-shadow: var(--effect-button-shadow);
+        }
+        .sticky-cta-btn:active {
+            background: var(--color-info-pressed);
         }
 
-        /* Responsive */
+        .sticky-cta.visible { display: block; }
+        body.sticky-active { padding-bottom: 72px; }
+
+        /* ================================================================
+           RESPONSIVE (tablet & up)
+           ================================================================ */
         @media (min-width: 768px) {
             .container { max-width: 720px; }
-            .hero { padding: 56px 0 64px; }
-            h1 { font-size: 40px; }
-            .subheadline { font-size: 18px; }
-            .form-card { padding: 32px; }
+            .hero { padding: var(--space-16) 0 var(--space-16); }
+
+            /* h1 → Display/MD/Bold on larger screens */
+            h1 {
+                font: var(--type-display-md-bold);
+            }
+            .subheadline {
+                font: var(--type-body-lg-regular);
+            }
+            .form-card { padding: var(--space-8); }
             .trust-grid { grid-template-columns: repeat(4, 1fr); }
             .specialty-list { grid-template-columns: repeat(4, 1fr); }
         }
 
         @media (max-width: 380px) {
-            h1 { font-size: 24px; }
+            /* h1 → slightly smaller for very narrow screens */
+            h1 {
+                font-size: var(--space-6); /* 24px */
+            }
             .trust-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Show sticky CTA after scroll (toggled by JS) */
-        .sticky-cta.visible { display: block; }
-        body.sticky-active { padding-bottom: 72px; }
-
-        /* Visually hidden but accessible */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
         }
     </style>
 
@@ -393,10 +632,8 @@
                 <div id="thank-you" class="thank-you" role="status" aria-live="polite">
                     <div class="form-card">
                         <p class="thank-you-icon">✅</p>
-                        <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 12px;">
-                            You're all set.
-                        </h2>
-                        <p style="color: #525252; font-size: 15px;">
+                        <h2>You're all set.</h2>
+                        <p>
                             A specialist from your nearest OrthoNow clinic will call you
                             within 15 minutes. Keep your phone nearby.
                         </p>
@@ -462,7 +699,7 @@
 
     <script>
         /**
-         * OrthoNow Landing Page — Phase 2 Logic
+         * OrthoNow Landing Page — Form Logic
          * - Form validation (regex-based)
          * - GTM dataLayer push (fires on submit, NOT on page load)
          * - Thank-you state (no page reload)
