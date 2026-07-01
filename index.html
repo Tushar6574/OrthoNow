@@ -272,15 +272,29 @@
         </div>
     </section>
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    <script src="tracking.js" defer></script>
+    <script defer>
+        /**
+         * OrthoNow Landing Page — Step Controller
+         * Uses the centralized OrthoNowTracking module (tracking.js)
+         * for all dataLayer interactions — no raw pushes here.
+         */
         let currentStep = 1;
         const bookingData = {};
+        let formStarted = false;
+
+        // Fire form_start on first interaction with any form field
+        function ensureFormStart() {
+            if (!formStarted) {
+                OrthoNowTracking.trackFormStart('Consultation Booking');
+                formStarted = true;
+            }
+        }
 
         function updateProgress(step) {
             const fill = document.getElementById('progress-fill');
             fill.style.width = ((step - 1) / 2) * 100 + '%';
-            
+
             for (let i = 1; i <= 3; i++) {
                 const dot = document.getElementById('dot-' + i);
                 dot.className = 'step-dot' + (i < step ? ' completed' : (i === step ? ' active' : ''));
@@ -290,58 +304,55 @@
         }
 
         async function goToStep(step) {
-            // Validation Logic
+            ensureFormStart();
+
+            // Step 1 → 2: Validate clinic + specialty selection
             if (step === 2 && currentStep === 1) {
                 const clinic = document.getElementById('clinic').value;
                 const spec = document.getElementById('specialty').value;
                 if (!clinic || !spec) { alert('Please select clinic and specialty.'); return; }
+
                 bookingData.clinic = clinic;
                 bookingData.specialty = spec;
 
-                // REAL-TIME TRACKING: Step 1 Complete
-                window.dataLayer.push({
-                    'event': 'booking_step_complete',
-                    'step_number': 1,
-                    'step_name': 'location_specialty_selected',
-                    'clinic_location': clinic,
-                    'specialty': spec
+                // Track Step 1 completion via centralized module
+                OrthoNowTracking.trackBookingStep(1, {
+                    clinicLocation: clinic,
+                    specialty: spec
                 });
             }
 
+            // Step 2 → 3: Validate user details (PII)
             if (step === 3 && currentStep === 2) {
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
                 const date = document.getElementById('date').value;
-                
-                let valid = true;
-                if (name.length < 3) { document.getElementById('name-error').style.display='block'; valid=false; }
-                else document.getElementById('name-error').style.display='none';
 
-                if (!/^[0-9]{10}$/.test(phone)) { document.getElementById('phone-error').style.display='block'; valid=false; }
-                else document.getElementById('phone-error').style.display='none';
+                let valid = true;
+                if (name.length < 3) { document.getElementById('name-error').style.display = 'block'; valid = false; }
+                else document.getElementById('name-error').style.display = 'none';
+
+                if (!/^[0-9]{10}$/.test(phone)) { document.getElementById('phone-error').style.display = 'block'; valid = false; }
+                else document.getElementById('phone-error').style.display = 'none';
 
                 if (!valid) return;
-                
+
                 bookingData.name = name;
                 bookingData.phone = phone;
                 bookingData.date = date;
 
-                // Update Review Step
+                // Update review step UI
                 document.getElementById('rev-clinic').innerText = bookingData.clinic;
                 document.getElementById('rev-spec').innerText = bookingData.specialty;
                 document.getElementById('rev-date').innerText = bookingData.date || 'To be decided';
 
-                // REAL-TIME TRACKING: Step 2 Complete
-                window.dataLayer.push({
-                    'event': 'booking_step_complete',
-                    'step_number': 2,
-                    'step_name': 'user_details_submitted',
-                    'preferred_date': date,
-                    'form_id': 'main_appointment_form'
+                // Track Step 2 completion via centralized module
+                OrthoNowTracking.trackBookingStep(2, {
+                    preferredDate: date
                 });
             }
 
-            // Transition
+            // Transition UI
             document.getElementById('step-' + currentStep).classList.remove('active');
             document.getElementById('step-' + step).classList.add('active');
             currentStep = step;
@@ -354,24 +365,29 @@
             btn.innerText = 'Verifying...';
 
             try {
-                // Robust Async Simulation
-                await new Promise((res) => setTimeout(res, 1500));
-                
-                // FINAL TRACKING: Success
-                window.dataLayer.push({
-                    'event': 'consultation_form_submitted',
-                    'step_number': 3,
-                    'step_name': 'booking_confirmed',
-                    'clinic_location': bookingData.clinic,
-                    'specialty': bookingData.specialty,
-                    'submission_timestamp': new Date().toISOString()
+                // Simulated backend submission with async/await
+                await new Promise((resolve, reject) => {
+                    setTimeout(function () {
+                        Math.random() > 0.05
+                            ? resolve({ success: true })
+                            : reject(new Error('Network Timeout'));
+                    }, 1500);
                 });
 
+                // Track final conversion via centralized module
+                OrthoNowTracking.trackFormSubmit({
+                    clinicPreference: bookingData.clinic,
+                    specialty: bookingData.specialty
+                });
+
+                // Show success state
                 document.getElementById('step-3').classList.remove('active');
                 document.querySelector('.progress-container').style.display = 'none';
                 document.getElementById('thank-you').style.display = 'block';
-            } catch (e) {
-                alert('Connection error. Please try again.');
+
+            } catch (error) {
+                console.error('Submission failed:', error);
+                alert('Unable to process request. Please try again or call 1800-ORTHO-NOW.');
                 btn.disabled = false;
                 btn.innerText = 'Confirm Booking';
             }
