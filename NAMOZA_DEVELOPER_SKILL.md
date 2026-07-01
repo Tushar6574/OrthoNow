@@ -39,7 +39,7 @@ This document serves as the internal "skill" and quality standard for the OrthoN
 - Focus on the "Funnel Exploration" logic in GA4.
 
 ### Task 02: Landing Page
-- Implement the **FINT Design System** (from `design.md`).
+- Implement from `design.md`.
 - Ensure the form fires a valid GTM event on successful submission.
 
 ### Task 03: Integration
