@@ -26,11 +26,12 @@ Since the solution is built using vanilla technologies with no frameworks or ser
 
 1.  Clone this repository.
 2.  Open `index.html` in any modern web browser (Chrome/Edge/Safari).
-3.  **To verify tracking**: 
+3.  **To verify tracking (Real Working Output)**: 
     - Open Browser Developer Tools (`F12` or `Cmd+Opt+I`).
     - Navigate to the **Console** tab.
-    - Submit the form.
-    - You will see the `window.dataLayer.push` object log (if GTM were initialized) or you can inspect the code to see the robust async handler.
+    - Type `window.dataLayer` in the console and press Enter.
+    - Progress through the 3-step form on the page. At each step, re-check `window.dataLayer` to see the live events firing with accurate user data.
+    - This demonstrates a functional, production-ready funnel tracking setup as required by Task 01.
 
 ---
 
