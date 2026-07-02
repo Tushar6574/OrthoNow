@@ -6,14 +6,14 @@ This repository contains the deliverables for the OrthoNow digital growth engage
 
 ```
 OrthoNow/
-├── index.html                          # Task 02 (demo) - 3-step booking form (references Task 1/tracking.js)
-├── Task 1/                             # Task 01 - GTM Event Schema
+├── index.html                          # Task 02 (demo) - 3-step booking form (references Task_1/tracking.js)
+├── Task_1/                             # Task 01 - GTM Event Schema
 │   ├── tracking.js                     #   Centralized dataLayer manager module
 │   ├── task1_gtm_schema.md             #   Event schema, naming conventions, GTM container config
 │   ├── task1_developer_brief.md        #   Developer handoff with step-by-step dataLayer instructions
 │   ├── task1_ga4_ads_strategy.md       #   GA4 setup, custom dimensions, funnel, audiences, Ads import
 │   └── task1_documentation.md          #   Master handoff: architecture diagram, Loom script, QA checklist
-├── Task 2/                             # Task 02 - Landing Page Build
+├── Task_2/                             # Task 02 - Landing Page Build
 │   ├── landing.html                    #   Conversion-optimized landing page (single self-contained file)
 │   ├── conversion_strategy.md          #   Audience analysis, copy, hierarchy, trust selection
 │   ├── performance_audit.md            #   Core Web Vitals analysis and performance budget
@@ -22,7 +22,7 @@ OrthoNow/
 │   ├── pagespeed-task1.html            #   Full Lighthouse report (Task 1)
 │   ├── pagespeed-task2.html            #   Full Lighthouse report (Task 2)
 │   └── pagespeed_results.md            #   Score summary and verification instructions
-├── Task 3/                             # Task 03 - Integration Design
+├── Task_3/                             # Task 03 - Integration Design
 │   ├── integration_design.md           #   Final submission: 300-word answer + requirements checklist
 │   ├── architecture_design.md          #   Tool comparison, sequence diagram, latency budget
 │   ├── hubspot_integration.md          #   Property mapping, Search API JSON, phone dedup, edge cases
@@ -38,7 +38,7 @@ OrthoNow/
 | Page | URL | PageSpeed Mobile |
 | :--- | :--- | :--- |
 | Task 1 — 3-step booking form | [tushar6574.github.io/OrthoNow](https://tushar6574.github.io/OrthoNow/) | **100** |
-| Task 2 — Conversion landing page | [tushar6574.github.io/OrthoNow/Task%202/landing.html](https://tushar6574.github.io/OrthoNow/Task%202/landing.html) | **100** |
+| Task 2 — Conversion landing page | [tushar6574.github.io/OrthoNow/Task_2/landing.html](https://tushar6574.github.io/OrthoNow/Task_2/landing.html) | **100** |
 
 ---
 

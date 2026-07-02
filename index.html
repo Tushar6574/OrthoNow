@@ -272,8 +272,8 @@
         </div>
     </section>
 
-    <script src="Task 1/tracking.js" defer></script>
-    <script defer>
+    <script src="Task_1/tracking.js" defer></script>
+    <script>
         /**
          * OrthoNow Landing Page — Step Controller
          * Uses the centralized OrthoNowTracking module (tracking.js)
@@ -283,10 +283,23 @@
         const bookingData = {};
         let formStarted = false;
 
+        // Safe tracking wrapper to prevent crashes if tracking.js fails to load
+        const track = (method, ...args) => {
+            if (window.OrthoNowTracking && typeof window.OrthoNowTracking[method] === 'function') {
+                try {
+                    window.OrthoNowTracking[method](...args);
+                } catch (e) {
+                    console.error('[Tracking Error]', e);
+                }
+            } else {
+                console.warn(`[Tracking Warning] ${method} called but OrthoNowTracking not available.`);
+            }
+        };
+
         // Fire form_start on first interaction with any form field
         function ensureFormStart() {
             if (!formStarted) {
-                OrthoNowTracking.trackFormStart('Consultation Booking');
+                track('trackFormStart', 'Consultation Booking');
                 formStarted = true;
             }
         }
@@ -316,7 +329,7 @@
                 bookingData.specialty = spec;
 
                 // Track Step 1 completion via centralized module
-                OrthoNowTracking.trackBookingStep(1, {
+                track('trackBookingStep', 1, {
                     clinicLocation: clinic,
                     specialty: spec
                 });
@@ -347,7 +360,7 @@
                 document.getElementById('rev-date').innerText = bookingData.date || 'To be decided';
 
                 // Track Step 2 completion via centralized module
-                OrthoNowTracking.trackBookingStep(2, {
+                track('trackBookingStep', 2, {
                     preferredDate: date
                 });
             }
@@ -375,7 +388,7 @@
                 });
 
                 // Track final conversion via centralized module
-                OrthoNowTracking.trackFormSubmit({
+                track('trackFormSubmit', {
                     clinicPreference: bookingData.clinic,
                     specialty: bookingData.specialty
                 });
