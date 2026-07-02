@@ -7,7 +7,7 @@ Both pages were deployed to GitHub Pages and audited with Lighthouse (mobile, th
 | Page | URL |
 | :--- | :--- |
 | Task 1 (index.html) | https://tushar6574.github.io/OrthoNow/ |
-| Task 2 (landing.html) | https://tushar6574.github.io/OrthoNow/Task%202/landing.html |
+| Task 2 (landing.html) | https://tushar6574.github.io/OrthoNow/Task_2/landing.html |
 
 ## Scores
 
