@@ -35,9 +35,10 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 ┌─────────────────────────────────┐
 │  [BADGE: NABH Accredited]       │  ← Instant credibility strip
 │                                 │
-│  HEADLINE                       │  ← Addresses pain directly
-│  "Don't let knee or back pain   │
-│   dictate your schedule."       │
+│  HEADLINE                       │  ← High-stakes fear hook
+│  "Your mobility is your         │
+│   freedom. Don't let it         │
+│   slip away."                   │
 │                                 │
 │  SUBHEADLINE                    │  ← Value proposition + speed
 │  "Get an expert orthopaedic     │
@@ -89,14 +90,14 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 ## 3. Copy (Final Approved Text)
 
 ### Headline
-> **Don't let knee or back pain dictate your schedule.**
+> **Your mobility is your freedom. Don't let it slip away.**
 
-*Rationale*: Addresses the specific pain (knee/back), the audience's lifestyle constraint (schedule), and uses active, empowering language. Avoids generic healthcare clichés.
+*Rationale*: Transitions from a mere "convenience" hook to a high-stakes psychological trigger. Mobility is framed as "freedom," and its loss as an imminent threat ("slip away"). This triggers intense **loss aversion** and the fundamental fear of losing autonomy.
 
 ### Subheadline
-> **Get an expert orthopaedic opinion from India's leading specialists. Book your free consultation — we call you back within 15 minutes.**
+> **Get an expert orthopaedic opinion from India's leading specialists. Stop the damage before it's too late — we call you back within 15 minutes.**
 
-*Rationale*: Three promises in one sentence — expertise, speed (15 min), and free. The callback promise removes the burden of calling from the user.
+*Rationale*: Complements the headline by implying a window of opportunity ("before it's too late"). Maintains the triple promise of expertise, speed, and ease.
 
 ### CTA Button
 > **Book Free Consultation**
@@ -150,7 +151,7 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 | **Urgency** | "Callback within 15 minutes" creates a time-bound incentive to submit now, not later. |
 | **Social Proof** | "50,000+ patients treated" — if this many people trusted us, you can too. |
 | **Authority** | NABH accreditation + "expert orthopaedic opinion" — positions OrthoNow as the authority, not a generic clinic. |
-| **Loss Aversion** | "Don't let pain dictate your schedule" — frames inaction as a loss (continued suffering), not just a missed gain. |
+| **Loss Aversion** | "Your mobility is your freedom" — frames untreated pain as an active loss of independence and life quality, not just a physical nuisance. |
 | **Cognitive Ease** | Single-column layout, one clear CTA, minimal text. The brain can process and decide in seconds. |
 
 ---
