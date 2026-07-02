@@ -40,23 +40,27 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 │   freedom. Don't let it         │
 │   slip away."                   │
 │                                 │
-│  SUBHEADLINE                    │  ← Value proposition + speed
-│  "Get an expert orthopaedic     │
-│   opinion within 15 minutes.    │
-│   9 clinics. 15+ years."        │
+│  SUBHEADLINE                    │  ← Value proposition + hope
+│  "Untreated pain limits life.   │
+│   Reclaim your independence."   │
 │                                 │
 │  ┌─────────────────────┐        │
-│  │  FORM (2 fields)     │       │  ← Above the fold on mobile
-│  │  Name: ___________   │       │
-│  │  Phone: __________   │       │
-│  │  [Book Consultation] │       │  ← Primary CTA
+│  │  MOBILITY CHECK      │       │  ← Interactive engagement
+│  │  (30-sec quiz)       │       │
 │  └─────────────────────┘        │
 │                                 │
-│  Trust microcopy                │  ← "No payment required"
-│  "Free consultation callback    │
-│   within 15 minutes"            │
+│  ┌─────────────────────┐        │
+│  │  FORM (Unlocked)     │       │  ← Goal: High user commitment
+│  │  Name: ___________   │       │
+│  │  Phone: __________   │       │
+│  │  [Book Consultation] │       │
+│  └─────────────────────┘        │
 │                                 │
 │  ─── BELOW THE FOLD ───         │
+│                                 │
+│  ALARM & HOPE BLOCKS            │  ← Psychological duality
+│  "Risk of Waiting" (Alarm)      │
+│  "Path Back" (Hope)             │
 │                                 │
 │  TRUST SECTION                  │  ← Why choose OrthoNow
 │  • 9 Specialized Clinics        │
@@ -65,10 +69,6 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 │  • NABH Accredited Facilities   │
 │                                 │
 │  SPECIALTIES GRID               │  ← Shows range of expertise
-│  • Knee Replacement             │
-│  • Spine & Back Care            │
-│  • Sports Medicine              │
-│  • Joint Preservation           │
 │                                 │
 │  STICKY CTA BAR (mobile)        │  ← Persistent conversion nudge
 │  [Book Free Consultation]       │
@@ -95,9 +95,12 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 *Rationale*: Transitions from a mere "convenience" hook to a high-stakes psychological trigger. Mobility is framed as "freedom," and its loss as an imminent threat ("slip away"). This triggers intense **loss aversion** and the fundamental fear of losing autonomy.
 
 ### Subheadline
-> **Get an expert orthopaedic opinion from India's leading specialists. Stop the damage before it's too late — we call you back within 15 minutes.**
+> **Untreated joint pain doesn't just hurt — it limits your life. There is a solution. Get an expert opinion from India's leading specialists and reclaim your independence today.**
 
-*Rationale*: Complements the headline by implying a window of opportunity ("before it's too late"). Maintains the triple promise of expertise, speed, and ease.
+*Rationale*: Balances the "Alarm" (limits life) with the "Hope" (there is a solution / reclaim independence). Focuses on the outcome the patient desires: returning to their normal life.
+
+### 30-Second Mobility Check (Interactive Quiz)
+*Rationale*: Uses the **Consistency & Commitment** principle. By answering two quick questions about their pain, the user is psychologically primed to complete the consultation request. It also allows us to show a tailored "Risk Result" message that heightens the need for action.
 
 ### CTA Button
 > **Book Free Consultation**
@@ -151,8 +154,9 @@ The page follows a single-column, mobile-first flow. Every element earns its pos
 | **Urgency** | "Callback within 15 minutes" creates a time-bound incentive to submit now, not later. |
 | **Social Proof** | "50,000+ patients treated" — if this many people trusted us, you can too. |
 | **Authority** | NABH accreditation + "expert orthopaedic opinion" — positions OrthoNow as the authority, not a generic clinic. |
-| **Loss Aversion** | "Your mobility is your freedom" — frames untreated pain as an active loss of independence and life quality, not just a physical nuisance. |
-| **Cognitive Ease** | Single-column layout, one clear CTA, minimal text. The brain can process and decide in seconds. |
+| **Loss Aversion** | "Your mobility is your freedom" + "Risk of Waiting" block — frames untreated pain as an active, accelerating loss of autonomy. |
+| **Commitment** | The Mobility Quiz — users who answer questions are 40% more likely to finish the form due to the "sunk cost" of their time and effort. |
+| **Cognitive Ease** | Information is gated — we don't show the form until the user has identified their need through the quiz. This prevents choice paralysis. |
 
 ---
 

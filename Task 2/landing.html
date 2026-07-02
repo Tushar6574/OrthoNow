@@ -578,12 +578,50 @@
                 <h1 id="hero-heading">Your mobility is your freedom. Don't let it slip away.</h1>
 
                 <p class="subheadline">
-                    Get an expert orthopaedic opinion from India's leading specialists.
-                    Book your free consultation — we call you back within 15 minutes.
+                    Untreated joint pain doesn't just hurt — it limits your life. 
+                    <strong>There is a solution.</strong> Get an expert opinion from India's 
+                    leading specialists and reclaim your independence today.
                 </p>
 
-                <!-- ===== CONSULTATION FORM (2 fields — minimal friction) ===== -->
-                <div id="form-wrapper">
+                <!-- ===== MOBILITY CHECK (Interactive Alarm/Hope) ===== -->
+                <div id="mobility-check" class="form-card" style="margin-bottom: var(--space-8);">
+                    <h2 style="font: var(--type-heading-lg-bold); margin-bottom: var(--space-4);">30-Second Mobility Check</h2>
+                    <p style="font: var(--type-body-sm-regular); color: var(--color-primary-text-secondary); margin-bottom: var(--space-4);">
+                        Is your pain becoming a permanent risk? Check your status:
+                    </p>
+                    
+                    <div class="form-group">
+                        <p style="font: var(--type-label-lg-medium); margin-bottom: var(--space-2);">1. Does pain wake you up at night?</p>
+                        <div style="display: flex; gap: var(--space-4);">
+                            <label style="font-weight: 400;"><input type="radio" name="q1" value="yes" style="width: auto; margin-right: 8px;"> Yes</label>
+                            <label style="font-weight: 400;"><input type="radio" name="q1" value="no" style="width: auto; margin-right: 8px;"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <p style="font: var(--type-label-lg-medium); margin-bottom: var(--space-2);">2. Is pain affecting your work productivity?</p>
+                        <div style="display: flex; gap: var(--space-4);">
+                            <label style="font-weight: 400;"><input type="radio" name="q2" value="yes" style="width: auto; margin-right: 8px;"> Yes</label>
+                            <label style="font-weight: 400;"><input type="radio" name="q2" value="no" style="width: auto; margin-right: 8px;"> No</label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-primary" id="check-results-btn">See My Status</button>
+                    <p id="quiz-error" class="error-msg" style="text-align: center; margin-top: 8px;">Please answer both questions to see your status.</p>
+                </div>
+
+                <!-- ===== RISK RESULT (The Alarm/Hope Reveal) ===== -->
+                <div id="risk-result" class="form-card" style="display: none; margin-bottom: var(--space-8); border-left: 4px solid var(--color-danger-default);">
+                    <h2 id="risk-title" style="font: var(--type-heading-lg-bold); color: var(--color-danger-text-primary); margin-bottom: var(--space-2);">High Risk Detected</h2>
+                    <p id="risk-desc" style="font: var(--type-body-md-regular); margin-bottom: var(--space-4);">
+                        Your symptoms suggest ongoing joint stress. If left unaddressed, this could lead to chronic dependency. 
+                        <strong>However, there is hope.</strong>
+                    </p>
+                    <button type="button" class="btn-primary" id="unlock-form-btn">Claim My Free Consultation</button>
+                </div>
+
+                <!-- ===== CONSULTATION FORM (initially hidden) ===== -->
+                <div id="form-wrapper" style="display: none;">
                     <form id="consultation-form" class="form-card" novalidate aria-label="Book a consultation">
                         <div class="form-group">
                             <label for="patient-name">Your Name</label>
@@ -688,6 +726,31 @@
             </div>
         </section>
 
+        <!-- ===== THE ALARM & THE HOPE ===== -->
+        <section class="container" style="padding: var(--space-8) var(--space-4);">
+            <div style="display: grid; grid-template-columns: 1fr; gap: var(--space-8);">
+                <!-- The Alarm -->
+                <div style="padding: var(--space-6); background: var(--color-danger-subtle); border-radius: var(--radius-lg); border-left: 4px solid var(--color-danger-default);">
+                    <h3 style="font: var(--type-heading-md-medium); color: var(--color-danger-text-primary); margin-bottom: var(--space-2);">The Risk of Waiting</h3>
+                    <p style="font: var(--type-body-sm-regular); color: var(--color-primary-text-subtle);">
+                        Chronic joint and back pain isn't just a nuisance — it's a signal of ongoing tissue damage. 
+                        <strong>Delaying treatment by just 6 months</strong> can turn a simple solution into complex surgery. 
+                        Don't let today's ache become tomorrow's permanent disability.
+                    </p>
+                </div>
+
+                <!-- The Hope -->
+                <div style="padding: var(--space-6); background: var(--color-info-subtle); border-radius: var(--radius-lg); border-left: 4px solid var(--color-info-default);">
+                    <h3 style="font: var(--type-heading-md-medium); color: var(--color-info-text-secondary); margin-bottom: var(--space-2);">There is a Path Back</h3>
+                    <p style="font: var(--type-body-sm-regular); color: var(--color-primary-text-subtle);">
+                        90% of our patients find relief through <strong>non-surgical expert protocols</strong>. 
+                        Reclaim your weekends, return to your favorite sports, and play with your children pain-free. 
+                        Modern orthopaedics is about restoration, not just repair. <strong>Hope starts with a consultation.</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- ===== SPECIALTIES ===== -->
         <section class="specialties" aria-labelledby="spec-heading">
             <div class="container">
@@ -725,13 +788,10 @@
          *
          * FEATURES
          *   • Real async fetch with AbortController (8s timeout)
+         *   • Mobility Quiz logic (Alarm/Hope duality)
          *   • try / catch / finally error architecture
-         *   • Double-submit prevention (button lock)
-         *   • Network timeout + server error recovery
-         *   • GTM dataLayer push on SUCCESS only (not on load, not on failure)
-         *   • Accessible ARIA states (aria-busy, aria-invalid, role="alert")
-         *   • Thank-you state (no page reload)
-         *   • Error state with retry button
+         *   • GTM dataLayer push on SUCCESS only
+         *   • Sticky CTA visibility toggle on scroll
          * ================================================================
          */
 
@@ -741,10 +801,18 @@
             // ---- Config ----
             var API_ENDPOINT = 'https://api.orthonow.in/v1/leads';
             var REQUEST_TIMEOUT_MS = 8000;
-            var FORM_ID = 'book_consultation_landing';
+            var FORM_ID = 'book_consultation_landing_v2';
             var LEAD_SOURCE = 'Google Ads - Consultation Landing Page';
 
             // ---- DOM References ----
+            var mobilityCheck = document.getElementById('mobility-check');
+            var checkBtn      = document.getElementById('check-results-btn');
+            var quizError     = document.getElementById('quiz-error');
+            var riskResult    = document.getElementById('risk-result');
+            var riskTitle     = document.getElementById('risk-title');
+            var riskDesc      = document.getElementById('risk-desc');
+            var unlockBtn     = document.getElementById('unlock-form-btn');
+            
             var form         = document.getElementById('consultation-form');
             var submitBtn    = document.getElementById('submit-btn');
             var retryBtn     = document.getElementById('retry-btn');
@@ -757,19 +825,58 @@
             var phoneError   = document.getElementById('phone-error');
 
             // ---- State ----
-            var isSubmitting = false; // Double-submit lock
+            var isSubmitting = false;
 
             // ---- GTM ----
             window.dataLayer = window.dataLayer || [];
 
-            // ---- Validation ----
-            function validateName(value) {
-                return value.trim().length >= 3;
-            }
+            // ---- Phase 6: Quiz Interaction ----
+            checkBtn.addEventListener('click', function() {
+                var q1 = document.querySelector('input[name="q1"]:checked');
+                var q2 = document.querySelector('input[name="q2"]:checked');
 
-            function validatePhone(value) {
-                return /^[0-9]{10}$/.test(value.trim());
-            }
+                if (!q1 || !q2) {
+                    quizError.style.display = 'block';
+                    return;
+                }
+
+                quizError.style.display = 'none';
+                mobilityCheck.style.display = 'none';
+
+                // Alarm vs Hope logic
+                if (q1.value === 'yes' || q2.value === 'yes') {
+                    riskTitle.textContent = "High Risk Detected";
+                    riskTitle.style.color = "var(--color-danger-text-primary)";
+                    riskResult.style.borderLeftColor = "var(--color-danger-default)";
+                    riskDesc.innerHTML = "Your symptoms suggest your joints are under critical stress. <strong>Delaying treatment further increases the risk of permanent mobility loss.</strong> The good news? Our specialists can help you reverse this trend.";
+                } else {
+                    riskTitle.textContent = "Preventative Action Recommended";
+                    riskTitle.style.color = "var(--color-info-text-secondary)";
+                    riskResult.style.borderLeftColor = "var(--color-info-default)";
+                    riskDesc.innerHTML = "While your risk is lower, chronic pain often hides underlying damage. <strong>Early intervention is the key to staying surgery-free.</strong> Consult our experts to protect your future mobility.";
+                }
+
+                riskResult.style.display = 'block';
+                riskResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Track Quiz Completion
+                window.dataLayer.push({
+                    'event': 'mobility_quiz_completed',
+                    'quiz_result': q1.value === 'yes' || q2.value === 'yes' ? 'high_risk' : 'low_risk',
+                    'form_id': FORM_ID,
+                    'page_path': window.location.pathname
+                });
+            });
+
+            unlockBtn.addEventListener('click', function() {
+                riskResult.style.display = 'none';
+                formWrapper.style.display = 'block';
+                formWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            // ---- Validation ----
+            function validateName(value) { return value.trim().length >= 3; }
+            function validatePhone(value) { return /^[0-9]{10}$/.test(value.trim()); }
 
             function setFieldError(input, errorEl, isError) {
                 if (isError) {
@@ -781,179 +888,93 @@
                 }
             }
 
-            /**
-             * Submits lead data to backend via fetch with timeout.
-             * Returns a Promise that resolves on success or rejects on any failure.
-             */
             function submitLead(name, phone) {
                 var controller = new AbortController();
-                var timeoutId = setTimeout(function () {
-                    controller.abort();
-                }, REQUEST_TIMEOUT_MS);
+                var timeoutId = setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS);
 
                 return fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: name,
-                        phone: phone,
-                        source: LEAD_SOURCE,
-                        form_id: FORM_ID
-                    }),
+                    body: JSON.stringify({ name: name, phone: phone, source: LEAD_SOURCE, form_id: FORM_ID }),
                     signal: controller.signal
                 }).then(function (response) {
                     clearTimeout(timeoutId);
-
-                    if (!response.ok) {
-                        throw new Error('Server returned ' + response.status);
-                    }
-
+                    if (!response.ok) throw new Error('Server returned ' + response.status);
                     return response.json();
                 }).catch(function (error) {
                     clearTimeout(timeoutId);
-
-                    // Distinguish timeout from other network errors
-                    if (error.name === 'AbortError') {
-                        throw new Error('Request timed out after ' + REQUEST_TIMEOUT_MS + 'ms');
-                    }
-
+                    if (error.name === 'AbortError') throw new Error('Request timed out');
                     throw error;
                 });
             }
 
-            /**
-             * Fires the GTM dataLayer push on confirmed success.
-             * Pushes ≥ 2 parameters as required by the brief.
-             */
-            function fireTrackingEvent(name, phone) {
+            function fireTrackingEvent() {
                 window.dataLayer.push({
                     'event': 'consultation_form_submitted',
                     'form_id': FORM_ID,
                     'lead_source': LEAD_SOURCE,
-                    'page_section': 'hero',
                     'submission_timestamp': new Date().toISOString()
                 });
             }
 
-            /**
-             * Shows the thank-you state and hides form/error.
-             */
-            function showThankYou() {
-                formWrapper.style.display = 'none';
-                errorState.style.display = 'none';
-                thankYou.style.display = 'block';
-                thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            /**
-             * Shows the error state with retry option.
-             */
-            function showError() {
-                formWrapper.style.display = 'none';
-                thankYou.style.display = 'none';
-                errorState.style.display = 'block';
-                errorState.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            /**
-             * Resets button to default state.
-             */
-            function resetButton() {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Book Free Consultation';
-                submitBtn.removeAttribute('aria-busy');
-            }
-
-            /**
-             * Main form submission handler.
-             * Architecture: validate → lock UI → fetch → track → show state → unlock
-             */
             function handleSubmit(e) {
                 e.preventDefault();
-
-                // Prevent double-submit
                 if (isSubmitting) return;
 
                 var name  = nameInput.value;
                 var phone = phoneInput.value;
                 var isValid = true;
 
-                // 1. Validate
-                if (!validateName(name)) {
-                    setFieldError(nameInput, nameError, true);
-                    isValid = false;
-                } else {
-                    setFieldError(nameInput, nameError, false);
-                }
+                if (!validateName(name)) { setFieldError(nameInput, nameError, true); isValid = false; }
+                else { setFieldError(nameInput, nameError, false); }
 
-                if (!validatePhone(phone)) {
-                    setFieldError(phoneInput, phoneError, true);
-                    isValid = false;
-                } else {
-                    setFieldError(phoneInput, phoneError, false);
-                }
+                if (!validatePhone(phone)) { setFieldError(phoneInput, phoneError, true); isValid = false; }
+                else { setFieldError(phoneInput, phoneError, false); }
 
                 if (!isValid) return;
 
-                // 2. Lock UI (loading state)
                 isSubmitting = true;
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'Booking your consultation...';
+                submitBtn.textContent = 'Securing your slot...';
                 submitBtn.setAttribute('aria-busy', 'true');
 
-                // 3. Async submission
                 submitLead(name, phone)
                     .then(function () {
-                        // 4a. Success: fire tracking + show thank-you
-                        fireTrackingEvent(name, phone);
-                        showThankYou();
+                        fireTrackingEvent();
+                        formWrapper.style.display = 'none';
+                        thankYou.style.display = 'block';
+                        thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     })
                     .catch(function (error) {
-                        // 4b. Failure: log + show error state (NO tracking event fired)
-                        console.error('[OrthoNow] Submission failed:', error.message);
-                        showError();
+                        formWrapper.style.display = 'none';
+                        errorState.style.display = 'block';
+                        errorState.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     })
                     .finally(function () {
-                        // 5. Unlock (always)
                         isSubmitting = false;
-                        resetButton();
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Book Free Consultation';
+                        submitBtn.removeAttribute('aria-busy');
                     });
             }
 
-            // ---- Event Listeners ----
-
             form.addEventListener('submit', handleSubmit);
 
-            // Retry button: hide error, show form again
             retryBtn.addEventListener('click', function () {
                 errorState.style.display = 'none';
                 formWrapper.style.display = 'block';
-                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
 
-            // Clear field errors on input
-            nameInput.addEventListener('input', function () {
-                setFieldError(nameInput, nameError, false);
-            });
-            phoneInput.addEventListener('input', function () {
-                setFieldError(phoneInput, phoneError, false);
-            });
-
-            // ---- Sticky CTA: show after user scrolls past hero ----
+            // Sticky CTA Logic
             var stickyCta = document.getElementById('sticky-cta');
             var heroSection = document.querySelector('.hero');
-
             if ('IntersectionObserver' in window) {
                 var observer = new IntersectionObserver(function (entries) {
                     entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            stickyCta.classList.remove('visible');
-                        } else {
-                            stickyCta.classList.add('visible');
-                        }
+                        if (entry.isIntersecting) stickyCta.classList.remove('visible');
+                        else stickyCta.classList.add('visible');
                     });
                 }, { threshold: 0 });
-
                 observer.observe(heroSection);
             }
         })();

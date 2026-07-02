@@ -39,6 +39,7 @@
         CLINIC_PAGE_VIEW: 'clinic_page_view',
         BLOG_SCROLL_DEPTH: 'blog_scroll_depth',
         NEWSLETTER_SIGNUP: 'newsletter_signup',
+        MOBILITY_QUIZ_COMPLETED: 'mobility_quiz_completed',
     };
 
     const FORM_ID = 'main_appointment_form';
@@ -216,14 +217,13 @@
     }
 
     /**
-     * Track newsletter signup.
+     * Track mobility quiz completion.
      */
-    function trackNewsletterSignup(signupSource) {
-        push(EVENTS.NEWSLETTER_SIGNUP, {
-            form_id: 'newsletter_form',
-            signup_source: signupSource || 'footer',
+    function trackMobilityQuiz(result) {
+        push(EVENTS.MOBILITY_QUIZ_COMPLETED, {
+            quiz_result: result,
+            form_id: 'book_consultation_landing_v2',
             page_path: window.location.pathname,
-            lead_source: 'Organic',
         });
     }
 
@@ -239,5 +239,6 @@
         trackClinicPageView: trackClinicPageView,
         trackScrollDepth: trackScrollDepth,
         trackNewsletterSignup: trackNewsletterSignup,
+        trackMobilityQuiz: trackMobilityQuiz,
     };
 })();

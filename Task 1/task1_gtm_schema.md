@@ -52,6 +52,7 @@ Each event carries a **minimum of 3 parameters** as required by the brief.
 | 10 | `search_performed` | Form Submit (Search) | `search_term`, `search_category`, `results_count`, `page_path` | Site Search / Intent Segmentation |
 | 11 | `video_engagement` | YouTube API (50% / complete) | `video_title`, `video_percent`, `video_duration`, `page_path` | Content Engagement |
 | 12 | `newsletter_signup` | Custom Event (dataLayer) | `form_id`, `signup_source`, `page_path`, `lead_source` | Lead Gen / Nurturing Audience |
+| 13 | `mobility_quiz_completed` | Custom Event (dataLayer) | `quiz_result`, `form_id`, `page_path` | Engagement / Conversion Priming |
 
 ### 2b. Parameter Definitions
 
@@ -63,6 +64,7 @@ These must be registered as **Custom Dimensions** in GA4 (Admin → Custom Defin
 | `form_name` | Event | string | `Consultation Booking` | Yes |
 | `step_number` | Event | integer | `1` | Yes |
 | `step_name` | Event | string | `location_specialty_selected` | Yes |
+| `quiz_result` | Event | string | `high_risk` / `low_risk` | **Yes** |
 | `clinic_location` | Event | string | `Indiranagar, Bengaluru` | Yes |
 | `clinic_preference` | Event | string | `Indiranagar` | Yes |
 | `clinic_name` | Event | string | `OrthoNow Indiranagar` | Yes |
